@@ -4,9 +4,19 @@ function changeType() {
   if (type) document.getElementById(type).style.display = 'block';
 }
 
-function generatePDF() {
+async function generatePDF() {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
+
+  // Загружаем шрифт
+  const font = await fetch("Roboto-Regular.ttf").then(res => res.arrayBuffer());
+  const fontBase64 = btoa(
+    new Uint8Array(font).reduce((data, byte) => data + String.fromCharCode(byte), '')
+  );
+
+  doc.addFileToVFS("Roboto-Regular.ttf", fontBase64);
+  doc.addFont("Roboto-Regular.ttf", "Roboto", "normal");
+  doc.setFont("Roboto");
 
   let text = `
 ДОГОВОР
@@ -18,9 +28,9 @@ function generatePDF() {
 Ежемесячная сумма SEO: ${seo.value} тг
 `;
 
-  const type = document.getElementById('type').value;
+  const type = document.getElementById("type").value;
 
-  if (type === 'too') {
+  if (type === "too") {
     text += `
 Компания: ${company.value}
 Директор: ${director.value}
@@ -33,7 +43,7 @@ function generatePDF() {
 `;
   }
 
-  if (type === 'ip') {
+  if (type === "ip") {
     text += `
 Компания: ${ip_company.value}
 Адрес: ${ip_address.value}
@@ -45,7 +55,7 @@ function generatePDF() {
 `;
   }
 
-  if (type === 'person') {
+  if (type === "person") {
     text += `
 ФИО: ${fio.value}
 Адрес: ${p_address.value}
@@ -53,6 +63,6 @@ function generatePDF() {
 `;
   }
 
-  doc.text(text, 10, 10);
+  doc.text(text, 10, 10, { maxWidth: 180 });
   doc.save("dogovor.pdf");
 }
