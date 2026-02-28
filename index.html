@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Система генерации договоров</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+  <h1>Генерация договора</h1>
+
+  <label>Дата договора</label>
+  <input type="date" id="date">
+
+  <label>Тип организации</label>
+  <select id="type" onchange="changeType()">
+    <option value="">Выберите тип</option>
+    <option value="too">ТОО</option>
+    <option value="ip">ИП</option>
+    <option value="person">Физическое лицо</option>
+  </select>
+
+  <label>Сумма договора</label>
+  <input type="number" id="sum">
+
+  <label>Сумма рекламного бюджета</label>
+  <input type="number" id="ads">
+
+  <label>Ежемесячная сумма SEO</label>
+  <input type="number" id="seo">
+
+  <!-- ТОО -->
+  <div id="too" class="block">
+    <h3>Реквизиты ТОО</h3>
+    <input id="director" placeholder="ФИО директора">
+    <input id="company" placeholder="ТОО «Название»">
+    <input id="address" placeholder="Адрес">
+    <input id="bin" placeholder="БИН">
+    <input id="bank" placeholder="Банк">
+    <input id="kbe" placeholder="КБе">
+    <input id="bik" placeholder="БИК">
+    <input id="account" placeholder="Номер счёта">
+  </div>
+
+  <!-- ИП -->
+  <div id="ip" class="block">
+    <h3>Реквизиты ИП</h3>
+    <input id="ip_company" placeholder="ИП «Название»">
+    <input id="ip_address" placeholder="Адрес">
+    <input id="iin" placeholder="ИИН">
+    <input id="ip_bank" placeholder="Банк">
+    <input id="ip_kbe" placeholder="КБе">
+    <input id="ip_bik" placeholder="БИК">
+    <input id="ip_account" placeholder="Номер счёта">
+  </div>
+
+  <!-- Физлицо -->
+  <div id="person" class="block">
+    <h3>Данные физического лица</h3>
+    <input id="fio" placeholder="ФИО">
+    <input id="p_address" placeholder="Адрес">
+    <input id="phone" placeholder="Телефон">
+  </div>
+
+  <button onclick="generatePDF()">Создать договор (PDF)</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
